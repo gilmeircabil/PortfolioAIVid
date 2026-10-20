@@ -284,6 +284,11 @@ button {
   background-color: #0d0d0d;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
   transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: translateZ(0);
 }
 
 .video-card:hover {
@@ -302,6 +307,8 @@ button {
   aspect-ratio: 1 / 1.05;
   overflow: hidden;
   background-color: #111;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .video-poster-box {
@@ -310,6 +317,8 @@ button {
   width: 100%;
   height: 100%;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .video-thumb {
@@ -333,11 +342,11 @@ button {
 
 .card-title {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
   font-family: var(--font-serif);
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 400;
   color: #ffffff;
   z-index: 2;
@@ -353,32 +362,53 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: rgba(0, 0, 0, 0.12);
   opacity: 0;
   transition: opacity var(--transition-fast);
+  pointer-events: none;
 }
 
 .video-card:hover .play-overlay {
   opacity: 1;
 }
 
+@media (hover: none), (max-width: 768px) {
+  .play-overlay {
+    opacity: 1;
+    background-color: transparent;
+  }
+}
+
 .play-btn {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.92);
   color: #121212;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
   cursor: pointer;
+  pointer-events: auto;
   transition: transform var(--transition-fast), background-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.play-btn-icon {
+  width: 15px;
+  height: 15px;
+  display: block;
 }
 
 .play-btn:hover {
-  transform: scale(1.08);
+  transform: scale(1.06);
   background-color: #ffffff;
+}
+
+.play-btn:active {
+  transform: scale(0.94);
 }
 
 .static-placeholder {
@@ -400,43 +430,74 @@ button {
   width: 100%;
   height: 100%;
   background-color: #000;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .video-embed-box iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
   border: 0;
   display: block;
+  -webkit-overflow-scrolling: touch;
 }
 
 .embed-top-bar {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   z-index: 10;
+  pointer-events: none;
 }
 
-.video-stop-btn {
+.video-stop-btn,
+.video-ext-btn {
+  pointer-events: auto;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background-color: rgba(20, 20, 20, 0.85);
-  color: #fff;
+  padding: 4px 10px;
+  border-radius: 16px;
+  background-color: rgba(18, 18, 18, 0.88);
+  color: #ffffff;
+  font-family: var(--font-sans);
   font-size: 11px;
+  font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(6px);
-  transition: background-color var(--transition-fast);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
-.video-stop-btn:hover {
-  background-color: rgba(0, 0, 0, 0.95);
+.embed-btn-icon {
+  width: 10px;
+  height: 10px;
+  display: block;
 }
 
-.esc-tag {
-  color: #bbb;
-  font-size: 10px;
+.video-stop-btn:hover,
+.video-ext-btn:hover {
+  background-color: #000000;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.video-stop-btn:active,
+.video-ext-btn:active {
+  transform: scale(0.96);
 }
 
 .embed-loader {
@@ -447,11 +508,13 @@ button {
   justify-content: center;
   background-color: #0d0d0d;
   z-index: 4;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
 }
 
 .loader-spinner {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-top-color: #ffffff;
   border-radius: 50%;
@@ -499,7 +562,7 @@ button {
 }
 
 /* ============================================
-   3. SKILLS SECTION
+   3. TOOLS & CAPABILITIES SECTION
    ============================================ */
 .skills-section {
   padding-bottom: 60px;
@@ -516,6 +579,11 @@ button {
   .skills-split {
     grid-template-columns: 0.95fr 1.05fr;
     gap: 48px;
+  }
+
+  .skills-media-wrap {
+    position: sticky;
+    top: 90px;
   }
 }
 
@@ -539,15 +607,42 @@ button {
 .skills-content {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 36px;
+}
+
+.skill-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .skill-category-title {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: clamp(22px, 3vw, 26px);
   font-weight: 400;
   color: var(--text-dark);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  line-height: 1.25;
+}
+
+.skill-subgroups-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skill-subgroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-subgroup-title {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 9px;
 }
 
 .skill-pills {
@@ -557,21 +652,41 @@ button {
 }
 
 .skill-pill {
-  display: inline-block;
-  padding: 5px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6px 15px;
   border: 1px solid var(--text-dark);
   border-radius: 9999px;
+  font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 400;
   color: var(--text-dark);
   background-color: transparent;
-  transition: all var(--transition-fast);
+  line-height: 1.35;
+  white-space: normal;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   cursor: default;
+  user-select: none;
 }
 
 .skill-pill:hover {
   background-color: var(--text-dark);
   color: var(--bg-pure);
+}
+
+/* Restrained entrance animation */
+.reveal-group {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-group.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ============================================
@@ -710,5 +825,119 @@ button {
   .footer-col-right {
     align-items: flex-start;
     text-align: left;
+  }
+
+  .play-btn {
+    width: 36px;
+    height: 36px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .play-btn-icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    bottom: 11px;
+    left: 11px;
+    right: 11px;
+  }
+
+  .embed-top-bar {
+    top: 6px;
+    left: 6px;
+    right: 6px;
+  }
+
+  .video-stop-btn,
+  .video-ext-btn {
+    padding: 3px 8px;
+    font-size: 10px;
+    gap: 4px;
+    border-radius: 12px;
+  }
+
+  .embed-btn-icon {
+    width: 8.5px;
+    height: 8.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-shell {
+    padding: 0 16px;
+  }
+
+  .video-grid {
+    gap: 14px;
+  }
+
+  .play-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .play-btn-icon {
+    width: 11px;
+    height: 11px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    bottom: 9px;
+    left: 9px;
+    right: 9px;
+  }
+
+  .embed-top-bar {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+  }
+
+  .video-stop-btn,
+  .video-ext-btn {
+    padding: 2.5px 7px;
+    font-size: 9.5px;
+    gap: 3px;
+    border-radius: 10px;
+  }
+
+  .embed-btn-icon {
+    width: 8px;
+    height: 8px;
+  }
+
+  .skills-split {
+    gap: 24px;
+  }
+
+  .skills-content {
+    gap: 24px;
+  }
+
+  .skill-pill {
+    padding: 4px 11px;
+    font-size: 11.5px;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-group {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

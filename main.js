@@ -96,7 +96,7 @@ function renderPosterHtml(video) {
       <span class="card-title">${title}</span>
       <div class="play-overlay">
         <button class="play-btn" type="button" aria-label="Play ${title}">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <svg class="play-btn-icon" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 5v14l11-7z"/>
           </svg>
         </button>
@@ -158,17 +158,25 @@ function playVideoInline(card) {
   currentlyPlayingCard = card;
 
   const iframeSrc = drivePreviewUrl(fileId);
+  const driveUrl = escapeHtml(video.driveUrl);
 
   mediaWrap.innerHTML = `
     <div class="video-embed-box">
       <div class="embed-top-bar">
-        <button type="button" class="video-stop-btn" aria-label="Close video (Esc)" title="Close video (Esc)">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <button type="button" class="video-stop-btn" aria-label="Close video" title="Close video">
+          <svg class="embed-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
-          <span class="esc-tag">Close</span>
+          <span>Close</span>
         </button>
+
+        <a href="${driveUrl}" target="_blank" rel="noopener" class="video-ext-btn" aria-label="Open in Google Drive" title="Open in Google Drive">
+          <span>Drive</span>
+          <svg class="embed-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
       </div>
 
       <div class="embed-loader" aria-hidden="true">
@@ -178,20 +186,39 @@ function playVideoInline(card) {
       <iframe
         src="${iframeSrc}"
         title="${escapeHtml(video.title)}"
-        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allow="autoplay *; encrypted-media *; picture-in-picture *; fullscreen *"
         allowfullscreen
-        loading="eager"
-        onload="this.parentElement.querySelector('.embed-loader')?.remove();">
+        playsinline
+        webkit-playsinline
+        loading="eager">
       </iframe>
     </div>
   `;
+
+  const iframe = mediaWrap.querySelector('iframe');
+  const loader = mediaWrap.querySelector('.embed-loader');
+  if (iframe && loader) {
+    const removeLoader = () => {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 200);
+    };
+    iframe.addEventListener('load', removeLoader, { once: true });
+    setTimeout(removeLoader, 3500);
+  }
 }
 
 if (videoGrid) {
   videoGrid.addEventListener('click', (e) => {
+    if (e.target.closest('.video-ext-btn')) {
+      return;
+    }
+
     const stopBtn = e.target.closest('.video-stop-btn');
     if (stopBtn) {
       e.stopPropagation();
+      e.preventDefault();
       stopCurrentVideo();
       return;
     }
@@ -212,7 +239,177 @@ document.addEventListener('keydown', (e) => {
 renderVideos();
 
 // --------------------------------------------
-// 3. NAVIGATION & SCROLL HANDLING
+// 3. TOOLS & CREATIVE CAPABILITIES
+// --------------------------------------------
+const capabilitiesData = [
+  {
+    category: "Tools",
+    subgroups: [
+      {
+        title: "AI Video Generation",
+        items: [
+          "Google Flow",
+          "Google Veo",
+          "Kling AI",
+          "Runway",
+          "Higgsfield"
+        ]
+      },
+      {
+        title: "AI Image Generation",
+        items: [
+          "Midjourney",
+          "FLUX",
+          "Nano Banana Pro"
+        ]
+      },
+      {
+        title: "AI Assistants",
+        items: [
+          "ChatGPT",
+          "Claude",
+          "Grok"
+        ]
+      },
+      {
+        title: "Video Editing & Audio",
+        items: [
+          "CapCut Pro",
+          "Adobe Premiere Pro",
+          "After Effects",
+          "Final Cut Pro",
+          "ElevenLabs"
+        ]
+      }
+    ]
+  },
+  {
+    category: "AI Video-Editing Skills",
+    items: [
+      "Cinematic Editing",
+      "Sound Design",
+      "Ad Pacing & Rhythm",
+      "Color Grading",
+      "Transitions & Motion Effects",
+      "Motion Graphics",
+      "Animated Captions",
+      "Voiceover Synchronization",
+      "Multi-Scene Editing",
+      "AI Footage Cleanup",
+      "Hook & CTA Editing",
+      "Social Media Ad Formatting"
+    ]
+  },
+  {
+    category: "AI Ad Production Skills",
+    items: [
+      "AI Product Commercials",
+      "AI UGC Ads",
+      "AI Avatar Creation",
+      "Text-to-Video",
+      "Image-to-Video",
+      "Prompt Direction",
+      "Ad Scriptwriting",
+      "Creative Direction",
+      "Product Consistency",
+      "Character Consistency",
+      "Scene-by-Scene Planning",
+      "Camera Movement Direction",
+      "Visual Storytelling",
+      "Social Media Ad Creatives"
+    ]
+  },
+  {
+    category: "Cinematography & Visual Direction",
+    items: [
+      "Camera Angles",
+      "Camera Movement",
+      "Composition",
+      "Mise-en-scène",
+      "Lighting Direction",
+      "Product Cinematography",
+      "Studio & Interior Scenes",
+      "Action & Object Shots",
+      "Perspective & Framing",
+      "Cinematic B-Roll",
+      "Visual Continuity",
+      "Scene Reconstruction"
+    ]
+  }
+];
+
+function renderCapabilities() {
+  const container = document.getElementById('skillsContent');
+  if (!container) return;
+
+  container.innerHTML = capabilitiesData.map(group => {
+    const categoryTitle = escapeHtml(group.category);
+
+    if (group.subgroups) {
+      const subgroupsHtml = group.subgroups.map(sub => {
+        const subTitle = escapeHtml(sub.title);
+        const pillsHtml = sub.items
+          .map(item => `<span class="skill-pill">${escapeHtml(item)}</span>`)
+          .join('');
+        return `
+          <div class="skill-subgroup">
+            <h4 class="skill-subgroup-title">${subTitle}</h4>
+            <div class="skill-pills">${pillsHtml}</div>
+          </div>
+        `;
+      }).join('');
+
+      return `
+        <div class="skill-group reveal-group">
+          <h3 class="skill-category-title">${categoryTitle}</h3>
+          <div class="skill-subgroups-list">${subgroupsHtml}</div>
+        </div>
+      `;
+    }
+
+    const pillsHtml = group.items
+      .map(item => `<span class="skill-pill">${escapeHtml(item)}</span>`)
+      .join('');
+
+    return `
+      <div class="skill-group reveal-group">
+        <h3 class="skill-category-title">${categoryTitle}</h3>
+        <div class="skill-pills">${pillsHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function initScrollReveal() {
+  const revealElements = document.querySelectorAll('.reveal-group');
+  if (!revealElements.length) return;
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced || !('IntersectionObserver' in window)) {
+    revealElements.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.15
+  });
+
+  revealElements.forEach(el => observer.observe(el));
+}
+
+renderCapabilities();
+initScrollReveal();
+
+// --------------------------------------------
+// 4. NAVIGATION & SCROLL HANDLING
 // --------------------------------------------
 const siteHeader = document.getElementById('header');
 const navToggle = document.getElementById('navToggle');
@@ -292,7 +489,7 @@ function updateActiveNavLink() {
 window.addEventListener('scroll', updateActiveNavLink, { passive: true });
 
 // --------------------------------------------
-// 4. TOAST NOTIFICATION
+// 5. TOAST NOTIFICATION
 // --------------------------------------------
 const toastNotice = document.getElementById('toastNotice');
 let toastTimer = null;
