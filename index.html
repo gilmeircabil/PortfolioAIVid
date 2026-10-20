@@ -1,196 +1,163 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gilmier Ej Cabil — AI Ads Specialist &amp; Video Editor</title>
-  <meta name="description" content="Gilmier Ej Cabil builds AI-generated video ads for eCommerce brands — UGC-style, talking-head, VSL and product video.">
+  <title>Gilmier Ej Cabil — Videographer &amp; Video Editor</title>
+  <meta name="description" content="Portfolio of Gilmier Ej Cabil — Videographer, AI ads specialist, and video editor.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- ============ TOP SCROLL PROGRESS BAR ============ -->
+  <!-- Top Scroll Progress Indicator -->
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
-  <!-- ============ NAVIGATION ============ -->
-  <header class="site-header" id="header">
-    <div class="wrap header-inner">
-      <div class="brand-group">
-        <a href="#home" class="brand-logo">Gilmier Cabil</a>
-        <div class="live-status-pill">
-          <span class="live-dot"></span>
-          <span class="live-text">Manila, PH <span id="manilaTime"></span></span>
-        </div>
+  <div class="site-shell">
+    <!-- ============ NAVIGATION ============ -->
+    <header class="site-header" id="header">
+      <div class="header-inner">
+        <a href="#about" class="brand-logo" aria-label="Gilmier Cabil homepage">G &mdash; C</a>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="nav-menu" id="navMenu">
+          <ul class="nav-links">
+            <li><a href="#about" class="nav-link active">About me</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
       </div>
+    </header>
 
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-      </button>
+    <main>
+      <!-- ============ 1. HERO / ABOUT ME ============ -->
+      <section class="hero-section" id="about">
+        <h1 class="hero-title">
+          ai ads specialist<br>
+          &amp;VIDEO-EDITOR
+        </h1>
 
-      <nav class="nav-menu" id="navMenu">
-        <ul class="nav-links">
-          <li><a href="#home" class="nav-link active">Home</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main>
-    <!-- ============ 1. HOME ============ -->
-    <section class="hero" id="home">
-      <div class="wrap hero-inner">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            AI video ads,<br>
-            from first frame<br>
-            to finished cut.
-          </h1>
-
-          <p class="hero-desc">
-            I'm Gilmier Ej Cabil, an AI ads specialist and video editor from the Philippines. 
-            I build AI-generated video ads for eCommerce brands — UGC-style, talking-head, VSL and product video, 
-            from the first prompt to a finished, performance-ready cut.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">
-              <span>See the work</span>
-              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <a href="#contact" class="btn btn-ghost">Contact</a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="hero-image-frame" id="heroImageFrame">
-            <img src="assets/image.png" alt="Gilmier Ej Cabil - AI Video Editor" class="hero-img">
-            <div class="frame-tag">
-              <span class="rec-dot"></span>
-              <span id="heroTimecode">REC 00:00:24:12</span>
-            </div>
-            <span class="visual-corner-badge">AI Spec Editor</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 2. PROJECTS ============ -->
-    <section class="projects-section" id="projects">
-      <div class="wrap">
-        <div class="section-header">
-          <span class="section-label">SELECTED WORK</span>
-          <div class="section-title-wrap">
-            <h2 class="section-title">Projects</h2>
-            <span class="projects-count">6 Direct-Play Cuts</span>
-          </div>
-          <p class="section-desc">Click any video to play directly. Curated vertical AI ads and commercial cuts.</p>
-        </div>
-
-        <!-- Video Grid: Direct inline playback on click, 9:15 vertical aspect, title only -->
-        <div class="video-grid" id="videoGrid"></div>
-      </div>
-    </section>
-
-    <!-- ============ 3. ABOUT ============ -->
-    <section class="about-section" id="about">
-      <div class="wrap">
-        <div class="about-inner">
-          <div class="about-visual">
-            <img src="assets/image.png" alt="Gilmier Cabil" class="about-img" loading="lazy">
-            <div class="about-tag">Gilmier Ej Cabil</div>
+        <div class="hero-split">
+          <div class="hero-media-wrap">
+            <img src="assets/image.png" alt="Gilmier Ej Cabil portrait" class="hero-img">
           </div>
 
-          <div class="about-content">
-            <h2 class="section-title">About</h2>
-            
-            <p>
-              I'm <strong>Gilmier Ej Cabil</strong>, from the Philippines. I'm an AI ads specialist and video editor with hands-on experience in AI video editing and creation — building AI-generated video ads for eCommerce brands from the first prompt all the way to a finished, polished ad.
+          <div class="hero-bio">
+            <p class="bio-text">
+              My name is Gilmier Ej Cabil. I am an AI ads specialist and video editor from the Philippines. I build AI-generated video ads for eCommerce brands, UGC creators, talking-head ads, and commercial product cuts. I work from initial concept and prompts to final performance-ready delivery.
             </p>
-            
-            <p>
-              Outside client work, I run my own AI ad tests daily: new tools, new prompts, and new hooks. That daily practice is where I've sharpened my craft. I'm always open to a test project so you can see the cut quality before committing.
-            </p>
-
-            <ul class="about-highlights">
-              <li class="highlight-item">
-                <span class="hi-index">01</span>
-                <span class="hi-text">UGC &amp; talking-head creators</span>
-              </li>
-              <li class="highlight-item">
-                <span class="hi-index">02</span>
-                <span class="hi-text">eCommerce product video &amp; VSLs</span>
-              </li>
-              <li class="highlight-item">
-                <span class="hi-index">03</span>
-                <span class="hi-text">Hook-first conversion structure</span>
-              </li>
-              <li class="highlight-item">
-                <span class="hi-index">04</span>
-                <span class="hi-text">Fast 24–48h turnaround &amp; iteration</span>
-              </li>
-            </ul>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============ 4. CONTACT ============ -->
-    <section class="contact-section" id="contact">
-      <div class="wrap">
-        <div class="contact-inner">
-          <h2 class="section-title">Contact</h2>
-          <p class="section-desc">Tell me about your product, or request a test ad. I reply within 24 hours.</p>
+      <!-- ============ 2. PROJECTS ============ -->
+      <section class="projects-section" id="projects">
+        <div class="section-divider">
+          <span class="divider-line" aria-hidden="true"></span>
+          <h2 class="section-heading">Projects</h2>
+        </div>
 
-          <div class="contact-cards">
-            <div class="contact-card">
-              <span class="contact-card-label">Email</span>
-              <div class="contact-card-row">
-                <a href="mailto:gilmiercabil@gmail.com" class="contact-card-val" id="emailLink">gilmiercabil@gmail.com</a>
-                <button type="button" class="btn-copy" id="copyEmailBtn" aria-label="Copy email address" title="Click to copy">
-                  <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="copy-text">Copy</span>
-                </button>
+        <div class="video-grid" id="videoGrid">
+          <!-- Video cards rendered by main.js -->
+        </div>
+
+        <div class="projects-action">
+          <a href="https://drive.google.com/drive/folders/1yUfWV-Fn4NAuCABynXZmwiz9BAMz-XHG?usp=drive_link" target="_blank" rel="noopener" class="drive-btn">
+            <span>View More Videos on Google Drive</span>
+            <svg class="drive-btn-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7V17"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ 3. SKILLS ============ -->
+      <section class="skills-section" id="skills">
+        <div class="section-divider">
+          <span class="divider-line" aria-hidden="true"></span>
+          <h2 class="section-heading">Skills</h2>
+        </div>
+
+        <div class="skills-split">
+          <div class="skills-media-wrap">
+            <img src="assets/thumbnails/1.png" alt="Video production setup" class="skills-img" loading="lazy">
+          </div>
+
+          <div class="skills-content">
+            <div class="skill-group">
+              <h3 class="skill-category-title">Tools</h3>
+              <div class="skill-pills">
+                <span class="skill-pill">Adobe Premiere Pro</span>
+                <span class="skill-pill">Final Cut Pro</span>
+                <span class="skill-pill">After Effects</span>
+                <span class="skill-pill">CapCut</span>
+                <span class="skill-pill">Runway Gen-3</span>
+                <span class="skill-pill">Kling AI</span>
+                <span class="skill-pill">Midjourney</span>
+                <span class="skill-pill">ElevenLabs</span>
               </div>
             </div>
 
-            <div class="contact-card">
-              <span class="contact-card-label">Phone / WhatsApp</span>
-              <div class="contact-card-row">
-                <a href="tel:+639365081533" class="contact-card-val">+63 936 508 1533</a>
-                <span class="contact-badge">Direct Line</span>
+            <div class="skill-group">
+              <h3 class="skill-category-title">Video-editing skills</h3>
+              <div class="skill-pills">
+                <span class="skill-pill">Sound editing</span>
+                <span class="skill-pill">Animation</span>
+                <span class="skill-pill">Rhythm</span>
+                <span class="skill-pill">Color correction</span>
+                <span class="skill-pill">Multi-camera video editing</span>
+                <span class="skill-pill">Motion graphics</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h3 class="skill-category-title">Videographer skills</h3>
+              <div class="skill-pills">
+                <span class="skill-pill">Camera tools</span>
+                <span class="skill-pill">Composition</span>
+                <span class="skill-pill">Mise-en-scène</span>
+                <span class="skill-pill">Lighting schemes</span>
+                <span class="skill-pill">Sound recording</span>
+                <span class="skill-pill">Perspective</span>
+                <span class="skill-pill">Studio, interior, action, and object shooting</span>
+                <span class="skill-pill">AI UGC avatars</span>
+                <span class="skill-pill">Prompt direction</span>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+    </main>
 
-          <div class="contact-cta">
-            <a href="mailto:gilmiercabil@gmail.com?subject=Test%20Ad%20Request%20-%20AI%20Video" class="btn btn-primary btn-cta">
-              <span>Request a test ad</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
+    <!-- ============ FOOTER / CONTACT ============ -->
+    <footer class="site-footer" id="contact">
+      <div class="footer-col">
+        <span class="footer-label">Email</span>
+        <a href="mailto:gilmiercabil@gmail.com" class="footer-value" id="emailLink">gilmiercabil@gmail.com</a>
+      </div>
+
+      <div class="footer-col footer-col-right">
+        <span class="footer-label">Socials</span>
+        <div class="footer-social-links">
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer-social-link">LinkedIn</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="footer-social-link">Instagram</a>
+          <a href="tel:+639365081533" class="footer-social-link">+63 936 508 1533</a>
         </div>
       </div>
-    </section>
-  </main>
+    </footer>
+  </div>
 
-  <!-- ============ FOOTER ============ -->
-  <footer class="site-footer">
-    <div class="wrap footer-inner">
-      <span class="footer-name">Gilmier Cabil</span>
-      <span class="footer-copy">&copy; 2026 Gilmier Cabil. All rights reserved.</span>
-    </div>
-  </footer>
-
-  <!-- Toast Notification for UI Feedback -->
+  <!-- Toast Notification -->
   <div class="toast-notice" id="toastNotice" role="status" aria-live="polite"></div>
 
   <script src="main.js"></script>
